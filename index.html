@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wooden Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+        <div class="container">
+            <h1 class="game-title">Wooden Tic-Tac-Toe</h1>
+            <div class="mode-selection">
+                <button id="multiplayerBtn" class="mode-btn">
+                    <span class="btn-icon">👥</span>
+                    Multiplayer
+                </button>
+                <button id="computerBtn" class="mode-btn">
+                    <span class="btn-icon">🤖</span>
+                    Play with Computer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Symbol Selection Screen -->
+    <div id="symbolScreen" class="screen">
+        <div class="container">
+            <h2 class="screen-title">Choose Your Symbol</h2>
+            <div class="symbol-selection">
+                <button id="symbolX" class="symbol-btn" data-symbol="X">
+                    <span class="symbol">X</span>
+                </button>
+                <button id="symbolO" class="symbol-btn" data-symbol="O">
+                    <span class="symbol">O</span>
+                </button>
+            </div>
+            <p class="symbol-note">Your chosen symbol goes first!</p>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="container">
+            <div class="game-header">
+                <h2 id="currentTurn" class="turn-indicator">X's Turn</h2>
+                <button id="homeBtn" class="home-btn">🏠 Home</button>
+            </div>
+            
+            <div class="game-board" id="gameBoard" role="grid" aria-label="Tic-tac-toe game board">
+                <button class="cell" data-index="0" role="gridcell" aria-label="Cell 1, empty"></button>
+                <button class="cell" data-index="1" role="gridcell" aria-label="Cell 2, empty"></button>
+                <button class="cell" data-index="2" role="gridcell" aria-label="Cell 3, empty"></button>
+                <button class="cell" data-index="3" role="gridcell" aria-label="Cell 4, empty"></button>
+                <button class="cell" data-index="4" role="gridcell" aria-label="Cell 5, empty"></button>
+                <button class="cell" data-index="5" role="gridcell" aria-label="Cell 6, empty"></button>
+                <button class="cell" data-index="6" role="gridcell" aria-label="Cell 7, empty"></button>
+                <button class="cell" data-index="7" role="gridcell" aria-label="Cell 8, empty"></button>
+                <button class="cell" data-index="8" role="gridcell" aria-label="Cell 9, empty"></button>
+            </div>
+
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="score-label" id="player1Label">Player X</span>
+                    <span class="score-value" id="player1Score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label" id="player2Label">Player O</span>
+                    <span class="score-value" id="player2Score">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Win/Tie Popup -->
+    <div id="gamePopup" class="popup-overlay">
+        <div class="popup">
+            <div class="popup-content">
+                <h2 id="popupTitle" class="popup-title"></h2>
+                <p id="popupMessage" class="popup-message"></p>
+                <div class="popup-buttons">
+                    <button id="replayBtn" class="popup-btn primary">🔄 Replay</button>
+                    <button id="homePopupBtn" class="popup-btn secondary">🏠 Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confetti" class="confetti-container"></div>
+
+    <!-- Audio Elements -->
+    <audio id="clickSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmAZBi6F0fPIcCEFKYDE7d+VUg0YZbXk6qBODAhNo+T1yWoiBC13yO/iigkJSrHjzKpgHAU4kdfw0Hk9CiR+1+3qj0QNCFCr5O6lWRwHN4zT8tGDPQojftJu6ZJKFAhIqOXviUkMCksWWt7vj0gLE0wr5uuyUhgJN4XJ59OGOAohdNPw34ZFEAxPr+fvo1oeCDaI0fPIfSMFLIHO8tiJRgs3jdT9kEEOCEpEJTr4pFsfA1LnT8jilk0KQ3aLN3b4oVktAVVQZmY05GZSMJTa0eLx+qNbLAVS3VDK5plQCURpOWo06H4qWC2C3vJ3IxOKh8Fzy8dv9uCa96nGQxNJJJc29OBVZSxdRB8Cw6mOzl/dRNXV5N5TaBzv8V3x9nBzG8z6S1NHNIddF/n5bgcJyQFt5uy9xOZpYQzJHFIhCLLhOEzl5uXaLNBHPuYpRAg2e6S1f+VoRvhaMbdJAdgUZklvJPF8kpEw3/KU8eMpT9wC1TcCBp4L+r+XMNDmVo5mBglLtB7nNW9YPU5tqFZfFfFMAQ==" type="audio/wav">
+    </audio>
+    <audio id="winSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmAZBi6F0fPIcCEFKYDE7d+VUg0YZbXk6qBODAhNo+T1yWoiBC13yO/iigkJSrHjzKpgHAU4kdfw0Hk9CiR+1+3qj0QNCFCr5O6lWRwHN4zT8tGDPQojftJu6ZJKFAhIqOXviUkMCksWWt7vj0gLE0wr5uuyUhgJN4XJ59OGOAohdNPw34ZFEAxPr+fvo1oeCDaI0fPIfSMFLIHO8tiJRgs3jdT9kEEOCEpEJTr4pFsfA1LnT8jilk0KQ3aLN3b4oVktAVVQZmY05GZSMJTa0eLx+qNbLAVS3VDK5plQCURpOWo06H4qWC2C3vJ3IxOKh8Fzy8dv9uCa96nGQxNJJJc29OBVZSxdRB8Cw6mOzl/dRNXV5N5TaBzv8V3x9nBzG8z6S1NHNIddF/n5bgcJyQFt5uy9xOZpYQzJHFIhCLLhOEzl5uXaLNBHPuYpRAg2e6S1f+VoRvhaMbdJAdgUZklvJPF8kpEw3/KU8eMpT9wC1TcCBp4L+r+XMNDmVo5mBglLtB7nNW9YPU5tqFZfFfFMAQ==" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
